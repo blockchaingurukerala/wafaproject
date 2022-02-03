@@ -1,6 +1,6 @@
 <?php	
     //error_reporting(0);   
-    //For insert into DB
+    //For insert into D
     
     if (isset($_POST["robo_name"][0])) {
               $conn = mysqli_connect("localhost","root","", "robodb");
