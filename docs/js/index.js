@@ -511,6 +511,7 @@ const App = {
 					}	
 				} 			
 			}
+			console.log(r2);
 			for(var q=0;q<50;q++){
 				var id="#objective"+q.toString();	
 				if( $(id).length ){

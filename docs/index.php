@@ -243,8 +243,26 @@
                     <?php echoElements($indent , $elementDef,$i+1); ?>
                      <td><?php 
                       $z=$z+1;
-                     echo $indent . $elementDef->getAttribute('name'); ?></td>                    
+                     echo $indent . $elementDef->getAttribute('name'); ?></td>     
+                     <?php
+                          if($atr=="subjective"){
+                     ?>  
+                       <td><select class="form-control" id=<?php echo  $atr.$z ?>>
+                         <option value="5">High</option>
+                         <option value="4">Medium High</option>
+                         <option value="3">Medium </option>
+                         <option value="2">Medium Low </option>
+                         <option value="1">Low </option>
+                       </select></td>
+                      <?php
+                         }
+                         else{
+                     ?>             
                      <td><input class="form-control" type="text" id=<?php echo  $atr.$z ?> ></td>
+                     <?php
+                         }
+                        
+                     ?> 
                    </tr>
 
                  <?php
