@@ -26,6 +26,7 @@ const App = {
 			  return
 			}	
 			App.loading=true;
+			//window.alert(App.account);
 			var role=await App.robot.roles(App.account);			
 			if(role=="1"){
 				//customer page
@@ -495,6 +496,9 @@ const App = {
 		$("#adminupdatexsdpage").hide();
 	  },
 	  saveAddnewRobot :async ()=>{
+
+
+
 			var purpose1=$("#purpose1").val();
 			var purpose2=$("#purpose2").val();
 			var robotname=$("#robotname").val();
@@ -527,7 +531,8 @@ const App = {
 			//calculate Predicted Score for this Robot
 			var maxsimilarity=0;
 			var maxsimilarityrobotid=0;
-			var count=await App.robot.totalRobots(); //Finding robots with same Pupose				
+			var count=await App.robot.totalRobots(); //Finding robots with same Pupose	
+					
 				for(var i=1;i<=count;i++) {					
 					var robot=await App.robot.robotgeneralinformations(i);
 					var pupose=robot[1];
@@ -564,18 +569,28 @@ const App = {
 				var sscore=0;
 				if(maxsimilarityrobotid>0){
 					var score1=await App.robot.roboratings(parseInt(maxsimilarityrobotid));
-					score=score1[2];
-					
-					sscore=parseFloat(parseInt(score)/100).toFixed(2);
-					
+					score=score1[2];					
+					sscore=parseFloat(parseInt(score)/100).toFixed(2);					
 				}
 				
-				var predictedscore=	parseFloat(maxsimilarity*sscore/100).toFixed(2);
-				
+				var predictedscore=	parseFloat(maxsimilarity*sscore/100).toFixed(2);				
 				var pscore=parseInt(predictedscore*100);
 				window.alert("Prediction score is" +predictedscore);
 				
 				//Predicted score completed
+
+				//Insert new robot without rating into DATABASE	
+				var count1=await App.robot.totalRobots();
+				
+				var id1=parseInt(count1)+1;	
+				
+				//var str="('" +id1.toString()+ "' )";
+				
+				
+				var str="('" +id1.toString()+ "', '"+robotname + "', '" + purpose1 + "', '" + App.account + "', '" + "New Robot" + "', '" +predictedscore + "')";
+				//window.alert(str)
+				var s=await $.post("../docs/insertNewRoboDB.php",{ str: str} );
+				console.log(s)
 
 			var manmachineinterface=" ";
 			var programmingflexibility=" ";
